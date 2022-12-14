@@ -5,16 +5,12 @@ def solution(k, dungeons):
     results = []
     def dfs(x,k):
         nonlocal n
-        results.append(x)
-        if x == n:
-            results.append(x)
-            return 
+        
         for i in range(n):
             if k >= dungeons[i][0]:
                 if visited[i]:
                     visited[i] = False
-                    
-                    
+                    results.append(x+1)
                     dfs(x+1,k-dungeons[i][1])
                     visited[i] = True
         return
