@@ -1,29 +1,29 @@
 from collections import deque
 
 def solution(begin, target, words):
-    answer = 0
+    visited = [False for i in range(len(words))]
     q = deque()
-    visited = [0 for _ in range(len(words))]
+    q.append((begin,0))
+    cnt = 0
     results = []
-    def dfs(x,r,target,words):
+    while q:
+        r, x = q.popleft()
         if r == target:
             results.append(x)
+            break
         for v in words:
             if not visited[words.index(v)]:
                 s = 0
-                for i in range(len(v)):
+                for i in range(len(r)):
                     if r[i] == v[i]:
                         s += 1
-                if s == len(v)-1:
-                    visited[words.index(v)] = 1
-                    dfs(x+1,v,target,words)
-                    visited[words.index(v)] = 0
-                    
-                    
-    dfs(0,begin,target,words)
-    print(results)
+                if s == len(r)-1:
+                    q.append((v,x+1))
+                    visited[words.index(v)] = True
+                    print(q)
+        cnt += 1            
     if results:
-        answer = min(results)
+        answer = results[0]
     else:
         answer = 0
     
